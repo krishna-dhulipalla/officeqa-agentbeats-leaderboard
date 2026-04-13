@@ -136,12 +136,9 @@ def resolve_image(agent: dict, name: str) -> None:
         resolved = info.get("docker_image")
 
         # Fallback workaround for broken AgentBeats purple-agent records
-        import os
-
-        fallback = os.environ.get("PURPLE_AGENT_IMAGE_OVERRIDE")
-        if not resolved and name.startswith("participant") and fallback:
-            resolved = fallback
-            print(f"[HACK] Falling back to PURPLE_AGENT_IMAGE_OVERRIDE for {name}: {resolved}")
+        if not resolved and name.startswith("participant"):
+            resolved = "ghcr.io/krishna-dhulipalla/corelink-ai:v1.0.0"
+            print(f"[HACK] Falling back to hardcoded participant image for {name}: {resolved}")
 
         if not resolved:
             print(f"Error: {name} resolved to empty docker_image from AgentBeats API")
