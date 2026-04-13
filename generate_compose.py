@@ -134,7 +134,7 @@ def resolve_image(agent: dict, name: str) -> None:
         print(f"[DEBUG] docker_image for {name}: {info.get('docker_image')!r}")
 
         resolved = info.get("docker_image")
-
+        print(f"[DEBUG] resolved for {name}: {resolved!r}")
         # Fallback workaround for broken AgentBeats purple-agent records
         if not resolved and name.startswith("participant"):
             resolved = "ghcr.io/krishna-dhulipalla/corelink-ai:v1.0.0"
