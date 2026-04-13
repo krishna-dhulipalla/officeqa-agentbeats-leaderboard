@@ -1,0 +1,15 @@
+[green_agent]
+agentbeats_id = "019ca14f-cbd5-7a71-9b2b-d43db92a09e1"
+env = { LOG_LEVEL = "INFO" }
+
+[[participants]]
+agentbeats_id = "019d1984-70ad-75f1-a1a0-1104a251cac6"
+name = "officeqa_agent"
+env = { NEBIUS_API_KEY = "${NEBIUS_API_KEY}", OPENAI_API_KEY = "${NEBIUS_API_KEY}", NEBIUS_BASE_URL = "https://api.studio.nebius.ai/v1/", TAVILY_API_KEY = "${TAVILY_API_KEY}"}
+
+[config]
+dataset_url = "https://raw.githubusercontent.com/databricks/officeqa/6aa8c32/officeqa.csv"
+corpus_url = "https://github.com/databricks/officeqa/tree/6aa8c32/treasury_bulletins_parsed"
+num_questions = 246
+difficulty = "all"
+tolerance = 0.0
