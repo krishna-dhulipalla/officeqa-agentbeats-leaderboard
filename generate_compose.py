@@ -129,8 +129,18 @@ def resolve_image(agent: dict, name: str) -> None:
             sys.exit(1)
         print(f"Using {name} image: {agent['image']}")
     elif has_id:
+        print(f"[DEBUG] Resolving {name} with agentbeats_id={agent['agentbeats_id']}")
         info = fetch_agent_info(agent["agentbeats_id"])
-        agent["image"] = info["docker_image"]
+        print(f"[DEBUG] Raw API response keys for {name}: {sorted(info.keys())}")
+        print(f"[DEBUG] docker_image for {name}: {info.get('docker_image')!r}")
+        print(f"[DEBUG] full API response for {name}: {info}")
+
+        agent["image"] = info.get("docker_image")
+
+        if not agent["image"]:
+            print(f"Error: {name} resolved to empty docker_image from AgentBeats API")
+            sys.exit(1)
+
         print(f"Resolved {name} image: {agent['image']}")
     else:
         print(f"Error: {name} must have either 'image' or 'agentbeats_id' field")
