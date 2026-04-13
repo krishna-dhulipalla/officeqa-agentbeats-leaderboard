@@ -131,15 +131,26 @@ def resolve_image(agent: dict, name: str) -> None:
     elif has_id:
         print(f"[DEBUG] Resolving {name} with agentbeats_id={agent['agentbeats_id']}")
         info = fetch_agent_info(agent["agentbeats_id"])
-        print(f"[DEBUG] Raw API response keys for {name}: {sorted(info.keys())}")
         print(f"[DEBUG] docker_image for {name}: {info.get('docker_image')!r}")
-        print(f"[DEBUG] full API response for {name}: {info}")
 
-        agent["image"] = info.get("docker_image")
+        resolved = info.get("docker_image")
 
-        if not agent["image"]:
+        # Fallback workaround for broken AgentBeats purple-agent records
+        import os
+
+        fallback = os.environ.get("PURPLE_AGENT_IMAGE_OVERRIDE")
+        if not resolved and name.startswith("participant") and fallback:
+            resolved = fallback
+            print(f"[HACK] Falling back to PURPLE_AGENT_IMAGE_OVERRIDE for {name}: {resolved}")
+
+        if not resolved:
             print(f"Error: {name} resolved to empty docker_image from AgentBeats API")
             sys.exit(1)
+
+        agent["image"] = resolved
+
+        if "id" in info:
+            agent["webhook_id"] = info["id"]
 
         print(f"Resolved {name} image: {agent['image']}")
     else:
