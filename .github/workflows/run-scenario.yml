@@ -105,7 +105,7 @@ jobs:
         run: |
           git remote add upstream https://github.com/${{ steps.target.outputs.repo }}.git
           git fetch upstream
-          git checkout -b ${{ steps.metadata.outputs.branch_name }} upstream/main
+          git checkout -b ${{ steps.metadata.outputs.branch_name }}
 
       - name: Commit results
         run: |
