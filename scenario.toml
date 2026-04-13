@@ -4,7 +4,7 @@ env = { LOG_LEVEL = "INFO" }
 
 [[participants]]
 agentbeats_id = "019d1984-70ad-75f1-a1a0-1104a251cac6"
-name = "corelink_finance_agent"
+name = "CorelinkAI_finance_agent"
 env = { NEBIUS_API_KEY = "${NEBIUS_API_KEY}", NEBIUS_BASE_URL = "https://api.studio.nebius.ai/v1/", TAVILY_API_KEY = "${TAVILY_API_KEY}" }
 
 [config]
